@@ -13,12 +13,23 @@ class TupleSpace:
         self.total_GET=0
         self.total_PUT=0
         self.total_READ=0
+        self.error_count=0
 
     def read(self, key):
         with self.lock:
             if key in self.tuples:
-                self.read_count += 1
+                self.total_READ += 1
+                self.total_oprations += 1
                 return self.tuples[key]
             self.error_count += 1
             return None
+        
+    def get(self, key):
+        with self.lock:
+            if key in self.tuples:
+                self.total_oprations+=1
+                self.total_GET += 1
+                return self.tuples.pop(key)
+            self.error_count += 1
+            return None    
             
