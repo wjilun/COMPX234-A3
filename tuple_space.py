@@ -50,5 +50,31 @@ class TupleSpace:
 
     def decrement_client(self):
         with self.lock:
-            self.connet_client_number -= 1       
+            self.connet_client_number -= 1
+
+    def get_stats(self):
+        with self.lock:
+            if self.number_of_tuples > 0:
+                self.average_tuples_size = sum(len(k) + len(v) for k, v in self.tuples.items()) / self.number_of_tuples
+                self.average_key_size = sum(len(k) for k in self.tuples.keys()) / self.number_of_tuples
+                self.average_value_size = sum(len(v) for v in self.tuples.values()) / self.number_of_tuples
+            else:
+                self.average_tuples_size = 0
+                self.average_key_size = 0
+                self.average_value_size = 0
+
+            return {
+                'number_of_tuples': self.number_of_tuples,
+                'average_tuples_size': self.average_tuples_size,
+                'average_key_size': self.average_key_size,
+                'average_value_size': self.average_value_size,
+                'connet_client_number': self.connet_client_number,
+                'total_oprations': self.total_oprations,
+                'total_GET': self.total_GET,
+                'total_PUT': self.total_PUT,
+                'total_READ': self.total_READ,
+                'error_count':self.error_count
+            }        
+
+                   
             
