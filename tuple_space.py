@@ -31,5 +31,16 @@ class TupleSpace:
                 self.total_GET += 1
                 return self.tuples.pop(key)
             self.error_count += 1
-            return None    
+            return None
+
+    def put(self, key, value):
+        with self.lock:
+            if key in self.tuples:
+                self.error_count += 1
+                return 1
+            self.tuples[key] = value
+            self.total_PUT += 1
+            self.total_oprations += 1
+            self.number_of_tuples += 1
+            return 0   
             
