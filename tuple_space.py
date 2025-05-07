@@ -42,5 +42,13 @@ class TupleSpace:
             self.total_PUT += 1
             self.total_oprations += 1
             self.number_of_tuples += 1
-            return 0   
+            return 0
+        
+    def increment_client(self):
+        with self.lock:
+            self.connet_client_number += 1
+
+    def decrement_client(self):
+        with self.lock:
+            self.connet_client_number -= 1       
             
