@@ -67,5 +67,8 @@ def handle_client(conn, addr, tuple_space):
                             response = f"ERR {key} does not exist"
                     else:
                         response = "ERR invalid command"
-                        tuple_space.error_count += 1                                       
+                        tuple_space.error_count += 1
+                response = f"{len(response):03d}{response}"
+                conn.sendall(response.encode('utf-8'))
+                                                               
                         
