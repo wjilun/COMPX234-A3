@@ -79,6 +79,12 @@ def handle_client(conn, addr, tuple_space):
         conn.close()
         tuple_space.decrement_client()
         print(f"Connection closed by {addr}")
-        
-                                                           
+
+def main():
+    hostname = str(input("please input hostname(such as localhost): "))
+    port = int(input("please input port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_address = (hostname, port) 
+    server_socket.bind(server_address)
+    server_socket.listen(5)                                                       
                         
