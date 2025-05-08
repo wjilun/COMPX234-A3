@@ -67,7 +67,17 @@ class User:
             filename1 = f"client_{i}"
             filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
             server_address = (hostname, port)
-            self.handle_client_file(filename, server_address)                
+            self.handle_client_file(filename, server_address)
+
+    def READ(self, key):
+        hostname = str(input("please input hostname(such as localhost): "))
+        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_address = (hostname, port)
+        client_socket.connect(server_address)
+        request = self.encode_request('READ', key)
+        client_socket.send(request.encode('utf-8'))
+        response = client_socket.recv(1024).decode('utf-8')                        
 
 
                     
