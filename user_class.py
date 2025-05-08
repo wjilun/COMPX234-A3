@@ -21,7 +21,19 @@ class User:
     def handle_client_file(self, filename, server_address):
         with open(filename, 'r') as file:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(server_address)    
+            client_socket.connect(server_address)
+            for line in file:
+                message = line.strip()
+                parts = message.split()
+                if len(parts) < 2:
+                   print(f"Error: Invalid request format: {line}")
+                   continue
+                cmd = parts[0]
+                key = parts[1]
+                if(len(parts) > 2):
+                    value = parts[2]
+                else:
+                    value = None
 
 
 
