@@ -70,5 +70,15 @@ def handle_client(conn, addr, tuple_space):
                         tuple_space.error_count += 1
                 response = f"{len(response):03d}{response}"
                 conn.sendall(response.encode('utf-8'))
-                                                               
+            except ConnectionError:
+                print(f"Connection error with {addr}")
+                break
+    except Exception as e:
+        print(f"Error handling client {addr}: {e}")
+    finally:
+        conn.close()
+        tuple_space.decrement_client()
+        print(f"Connection closed by {addr}")
+        
+                                                           
                         
