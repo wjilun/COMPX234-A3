@@ -84,18 +84,22 @@ def handle_client(conn, addr, tuple_space):
 def main():
     hostname = str(input("please input hostname(such as localhost): "))
     port = int(input("please input port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = (hostname, port) 
-    server_socket.bind(server_address)
-    server_socket.listen(5)
-    print_stats_thread=threading.Thread(target=print_stats, args=(tuples,))
-    print_stats_thread.start()
-    print(f"Server is listening on {server_address}")
-    while True:
-      conn, addr = server_socket.accept()
-      client_thread = threading.Thread(target=handle_client, args=(conn, addr, tuples))
-      client_thread.start()
-
+    if port < 50000 or port > 59999:
+        raise ValueError("Port must be between 50000 and 59999")
+    else:
+        server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server_address = (hostname, port) 
+        server_socket.bind(server_address)
+        server_socket.listen(5)
+        print_stats_thread=threading.Thread(target=print_stats, args=(tuples,))
+        print_stats_thread.start()
+        print(f"Server is listening on {server_address}")
+        while True:
+            conn, addr = server_socket.accept()
+            client_thread = threading.Thread(target=handle_client, args=(conn, addr, tuples))
+            client_thread.start()
+        
+    
 if __name__ == "__main__":
     main()
                         

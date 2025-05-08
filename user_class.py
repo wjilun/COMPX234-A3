@@ -5,7 +5,10 @@ class User:
     def __init__(self):
         hostname = str(input("please input hostname(such as localhost): "))
         port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
-        self.server_address = (hostname, port)
+        if port < 50000 or port > 59999:
+            raise ValueError("Port must be between 50000 and 59999")
+        else:
+            self.server_address = (hostname, port)
 
     def encode_request(self, cmd, key, value=None):
         if cmd == 'PUT':
