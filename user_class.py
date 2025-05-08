@@ -42,7 +42,12 @@ class User:
                     continue
                 if value and len(f"{key} {value}") > 970:
                     print(f"Error: Key and value combined too long: {message}")
-                    continue    
+                    continue
+                request = self.encode_request(cmd, key, value)
+                client_socket.send(request.encode('utf-8'))
+                response = client_socket.recv(1024).decode('utf-8')
+                print(f"{message}: {response[3:]}")
+                    
 
                     
 
