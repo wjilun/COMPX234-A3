@@ -64,5 +64,8 @@ def handle_client(conn, addr, tuple_space):
                         if result:
                             response = f"OK ({key},{result}) read"
                         else:
-                            response = f"ERR {key} does not exist"                               
+                            response = f"ERR {key} does not exist"
+                    else:
+                        response = "ERR invalid command"
+                        tuple_space.error_count += 1                                       
                         
