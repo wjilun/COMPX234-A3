@@ -56,7 +56,18 @@ class User:
         filename1 = f"client_{number}"
         filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
         server_address = (hostname, port)
-        self.handle_client_file(filename, server_address)            
+        self.handle_client_file(filename, server_address)
+
+    def read_mutiple_client_files(self):
+        hostname = str(input("please input hostname(such as localhost): "))
+        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
+        print("how many files(start from client_1) do you want to read?")
+        number = int(input())
+        for i in range(1, number + 1):
+            filename1 = f"client_{i}"
+            filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
+            server_address = (hostname, port)
+            self.handle_client_file(filename, server_address)                
 
 
                     
