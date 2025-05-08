@@ -86,5 +86,12 @@ def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_address = (hostname, port) 
     server_socket.bind(server_address)
-    server_socket.listen(5)                                                       
+    server_socket.listen(5)
+    print_stats_thread=threading.Thread(target=print_stats, args=(tuples,))
+    print_stats_thread.start()
+    print(f"Server is listening on {server_address}")
+    while True:
+      conn, addr = server_socket.accept()
+      client_thread = threading.Thread(target=handle_client, args=(conn, addr, tuples))
+      client_thread.start()                                                       
                         
