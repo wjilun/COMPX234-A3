@@ -96,7 +96,19 @@ class User:
                 return match.group(2).strip()
             else:
                 return None
-        client_socket.close()                        
+        client_socket.close()
+
+    def PUT(self, key, value):
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        request = self.encode_request('PUT', key, value)
+        client_socket.connect(self.server_address)
+        client_socket.send(request.encode('utf-8'))
+        response = client_socket.recv(1024).decode('utf-8')
+        if response[3:].startswith("ERR"):
+            return "failed"
+        else:
+            return "success"
+        client_socket.close()                            
 
 
                     
