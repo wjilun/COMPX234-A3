@@ -47,7 +47,17 @@ class User:
                 client_socket.send(request.encode('utf-8'))
                 response = client_socket.recv(1024).decode('utf-8')
                 print(f"{message}: {response[3:]}")
-                    
+
+    def read_one_client_file(self):
+        print("which file do you want to read?please input the number")
+        number = int(input())
+        hostname = str(input("please input hostname(such as localhost): "))
+        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
+        filename1 = f"client_{number}"
+        filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
+        server_address = (hostname, port)
+        self.handle_client_file(filename, server_address)            
+
 
                     
 
