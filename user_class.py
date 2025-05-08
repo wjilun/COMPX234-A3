@@ -80,6 +80,22 @@ class User:
                 return match.group(2).strip()
             else:
                 return None
+        client_socket.close()    
+
+    def GET(self, key):
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect(self.server_address)
+        request = self.encode_request('GET', key)
+        client_socket.send(request.encode('utf-8'))
+        response = client_socket.recv(1024).decode('utf-8')
+        if response[3:].startswith("ERR"):
+            return None
+        else:
+            match = re.search(r"\(([^,]+),([^)]+)\)", response)
+            if match:
+                return match.group(2).strip()
+            else:
+                return None
         client_socket.close()                        
 
 
