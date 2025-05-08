@@ -55,7 +55,7 @@ class User:
         print("which file do you want to read?please input the number")
         number = int(input())
         filename1 = f"client_{number}"
-        filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
+        filename = rf"test-workload\{filename1}.txt"
         self.handle_client_file(filename, self.server_address)
 
     def read_mutiple_client_files(self):
@@ -63,7 +63,7 @@ class User:
         number = int(input())
         for i in range(1, number + 1):
             filename1 = f"client_{i}"
-            filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
+            filename = rf"test-workload\{filename1}.txt"
             self.handle_client_file(filename, self.server_address)
 
     def READ(self, key):
