@@ -3,7 +3,9 @@ import re
 
 class User:
     def __init__(self):
-        pass
+        hostname = str(input("please input hostname(such as localhost): "))
+        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
+        self.server_address = (hostname, port)
 
     def encode_request(self, cmd, key, value=None):
         if cmd == 'PUT':
@@ -18,10 +20,10 @@ class User:
         else:
             raise ValueError("Invalid command")
 
-    def handle_client_file(self, filename, server_address):
+    def handle_client_file(self, filename):
         with open(filename, 'r') as file:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(server_address)
+            client_socket.connect(self.server_address)
             for line in file:
                 message = line.strip()
                 parts = message.split()
@@ -47,34 +49,26 @@ class User:
                 client_socket.send(request.encode('utf-8'))
                 response = client_socket.recv(1024).decode('utf-8')
                 print(f"{message}: {response[3:]}")
+            client_socket.close()
 
     def read_one_client_file(self):
         print("which file do you want to read?please input the number")
         number = int(input())
-        hostname = str(input("please input hostname(such as localhost): "))
-        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
         filename1 = f"client_{number}"
         filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
-        server_address = (hostname, port)
-        self.handle_client_file(filename, server_address)
+        self.handle_client_file(filename, self.server_address)
 
     def read_mutiple_client_files(self):
-        hostname = str(input("please input hostname(such as localhost): "))
-        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
         print("how many files(start from client_1) do you want to read?")
         number = int(input())
         for i in range(1, number + 1):
             filename1 = f"client_{i}"
             filename = rf"d:\文件夹\test-workload\test-workload\{filename1}.txt"
-            server_address = (hostname, port)
-            self.handle_client_file(filename, server_address)
+            self.handle_client_file(filename, self.server_address)
 
     def READ(self, key):
-        hostname = str(input("please input hostname(such as localhost): "))
-        port = int(input("Enter the port(This has to be a high port, such as 51234 (50000 <= port <= 59999)): "))
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server_address = (hostname, port)
-        client_socket.connect(server_address)
+        client_socket.connect(self.server_address)
         request = self.encode_request('READ', key)
         client_socket.send(request.encode('utf-8'))
         response = client_socket.recv(1024).decode('utf-8')
