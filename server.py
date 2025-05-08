@@ -35,5 +35,12 @@ def handle_client(conn, addr, tuple_space):
                 if cmd=="P":
                     value = data_str[key_end_idx + 1:].strip()
                 else:
-                    value = None        
+                    value = None    
+                if len(key) > 999 or (value and len(value) > 999):
+                    response = "ERR key or value too long"
+                    tuple_space.error_count += 1
+                elif cmd == 'P' and len(f"{key} {value}") > 970:
+                    response = "ERR key and value combined too long"
+                    tuple_space.error_count += 1
+                else:                    
                         
