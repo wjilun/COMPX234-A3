@@ -4,3 +4,12 @@ import threading
 import time
 
 tuples = TupleSpace()
+
+def print_stats(tuple_space):
+    while True:
+        stats = tuple_space.get_stats()
+        for a,b in stats.items():
+              print(f"statistics:")
+              print(f"{a}: {b}")
+              print("")
+        time.sleep(10)
