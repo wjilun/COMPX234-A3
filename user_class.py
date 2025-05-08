@@ -20,10 +20,10 @@ class User:
         else:
             raise ValueError("Invalid command")
 
-    def handle_client_file(self, filename):
+    def handle_client_file(self, filename,server_address):
         with open(filename, 'r') as file:
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect(self.server_address)
+            client_socket.connect(server_address)
             for line in file:
                 message = line.strip()
                 parts = message.split()
