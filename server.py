@@ -13,3 +13,7 @@ def print_stats(tuple_space):
               print(f"{a}: {b}")
               print("")
         time.sleep(10)
+
+def handle_client(conn, addr, tuple_space):
+    print(f"Connected by {addr}")
+    tuple_space.increment_client()        
