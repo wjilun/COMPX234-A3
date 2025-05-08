@@ -42,5 +42,27 @@ def handle_client(conn, addr, tuple_space):
                 elif cmd == 'P' and len(f"{key} {value}") > 970:
                     response = "ERR key and value combined too long"
                     tuple_space.error_count += 1
-                else:                    
+                else:
+                    if cmd == 'G':
+                        result = tuple_space.get(key)
+                        if result:
+                            response = f"OK ({key},{result}) removed"
+                        else:
+                            response = f"ERR {key} does not exist"
+                    elif cmd == 'P':
+                        if not value:
+                            response = "ERR missing value"
+                            tuple_space.error_count += 1
+                        else:
+                            result = tuple_space.put(key, value)
+                            if result == 0:
+                                response = f"OK ({key},{value}) added"
+                            else:
+                                response = f"ERR {key} already exists"
+                    elif cmd == 'R':
+                        result = tuple_space.read(key)
+                        if result:
+                            response = f"OK ({key},{result}) read"
+                        else:
+                            response = f"ERR {key} does not exist"                               
                         
