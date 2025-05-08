@@ -93,5 +93,8 @@ def main():
     while True:
       conn, addr = server_socket.accept()
       client_thread = threading.Thread(target=handle_client, args=(conn, addr, tuples))
-      client_thread.start()                                                       
+      client_thread.start()
+
+if __name__ == "__main__":
+    main()
                         
