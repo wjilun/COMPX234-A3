@@ -34,6 +34,17 @@ class User:
                     value = parts[2]
                 else:
                     value = None
+                if cmd not in ['READ', 'GET', 'PUT']:
+                    print(f"Error: Invalid request format: {line}")
+                    continue               
+                if len(key) > 999 or (value and len(value) > 999):
+                    print(f"Error: Key or value too long: {message}")
+                    continue
+                if value and len(f"{key} {value}") > 970:
+                    print(f"Error: Key and value combined too long: {message}")
+                    continue    
+
+                    
 
 
 
