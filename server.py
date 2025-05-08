@@ -7,12 +7,13 @@ tuples = TupleSpace()
 
 def print_stats(tuple_space):
     while True:
+        time.sleep(10)
         stats = tuple_space.get_stats()
         print(f"statistics:")
         for a,b in stats.items():
               print(f"{a}: {b}")
               print("")
-        time.sleep(10)
+        
 
 def handle_client(conn, addr, tuple_space):
     print(f"Connected by {addr}")
