@@ -77,7 +77,16 @@ class User:
         client_socket.connect(server_address)
         request = self.encode_request('READ', key)
         client_socket.send(request.encode('utf-8'))
-        response = client_socket.recv(1024).decode('utf-8')                        
+        response = client_socket.recv(1024).decode('utf-8')
+        if response[3:].startswith("ERR"):
+            return None
+        else:
+            match = re.search(r"\(([^,]+),([^)]+)\)", response)
+            if match:
+                return match.group(2).strip()
+            else:
+                return None
+        client_socket.close()                        
 
 
                     
