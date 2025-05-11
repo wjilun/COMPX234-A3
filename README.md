@@ -2,7 +2,7 @@ In this programm,I realise the function of communication between users and serve
 
 First:
 I create a tuple_space,this tuple_sapce is not real tuple ,because tuple cant be changed after created ,I create a dictionary 
-in this tuple_space.actually I should create user_class firstly,but it's OK.In this tuple_space,I put dictionary to store my dictionaries,
+in this tuple_space.actually I should create user_class firstly,but it's OK.In this tuple_space,I put dictionary in my tuples,
 and add the stats like error count to this class,making this to serve my later server class.
 
 Second:
