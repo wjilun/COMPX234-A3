@@ -1,4 +1,4 @@
-Here I haven't added annotations because all the detailed explanations are included in the 50 commits.
+Here I haven't added comments for the code because all the detailed explanations are included in the 51 commits.
 
 In this programm,I realise the function of communication between users and server,as follow I will tell you how I finish it.
 
